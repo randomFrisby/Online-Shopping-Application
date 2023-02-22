@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Customer> customers = customerRepo.findAll();
 		
 		if (customers.isEmpty())
-			throw new CustomerException("not customers found");
+			throw new CustomerException("no customers found");
 		
 		return customers;
 	}

@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
 		List<Admin> admins = adminRepo.findAll();
 		
 		if (admins.isEmpty()) {
-			throw new Exception("no user present");
+			throw new Exception("no admin found");
 		}
 		
 		return admins;

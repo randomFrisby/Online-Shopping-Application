@@ -16,6 +16,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -39,8 +40,8 @@ public abstract class User {
 	@Size(min = 6, max = 15, message = "the password length is not apropriate")
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$", 
-//	message = "password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", 
+	message = "password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")
 	private String password;
 
 	@NotNull
