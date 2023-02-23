@@ -1,5 +1,6 @@
 package com.shopezly.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopezly.exceptions.CustomerException;
+import com.shopezly.exceptions.MyErrorDetails;
 import com.shopezly.model.Customer;
 import com.shopezly.service.CustomerService;
 
@@ -26,7 +28,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@PostMapping("/addCustomer")
-	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer customer) {
+	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException {
 		
 		Customer newCustomer = customerService.addCustomer(customer);
 		
@@ -53,19 +55,24 @@ public class CustomerController {
 	
 	
 	@PutMapping("/customers/{id}")
-	public ResponseEntity<Customer> updateCustomerHandler(@PathVariable("id") Integer customerId, @Valid @RequestBody Customer customer) throws CustomerException {
+	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException {
 		
-		Customer updatedCustomer = customerService.updateCustomer(customerId, customer);
+		Customer updatedCustomer = customerService.updateCustomer(customer);
 		
 		return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/customers/{id}")
-	public ResponseEntity<Customer> deleteCustomerHandler(@PathVariable("id") Integer customerId) throws CustomerException {
+	public ResponseEntity<MyErrorDetails> deleteCustomerHandler(@PathVariable("id") Integer customerId) throws CustomerException {
 		
-		Customer deletedCustomer = customerService.deleteCustomer(customerId);
+		String res = customerService.deleteCustomer(customerId);
 		
-		return new ResponseEntity<>(deletedCustomer, HttpStatus.OK);
+		MyErrorDetails response = new MyErrorDetails();
+		response.setTimestamp(LocalDateTime.now());
+		response.setMessage(res);
+		response.setDetails("delete operation");
+		
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 }

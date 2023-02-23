@@ -43,14 +43,6 @@ public abstract class User {
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", 
 	message = "password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")
 	private String password;
-
-	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
-	private String firstName;
-	
-	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
-	private String lastName;
 	
 	
 	@NotNull(message = "Role is mandatory!")

@@ -22,7 +22,7 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@PostMapping("/addAdmin")
-	public ResponseEntity<Admin> createAdminHandler(@Valid @RequestBody Admin admin) {
+	public ResponseEntity<Admin> createAdminHandler(@Valid @RequestBody Admin admin) throws Exception {
 		
 		Admin newAdmin = adminService.createAdmin(admin);
 		

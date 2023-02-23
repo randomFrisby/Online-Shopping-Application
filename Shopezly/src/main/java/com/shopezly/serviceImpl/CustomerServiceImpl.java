@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shopezly.enums.Role;
 import com.shopezly.exceptions.CustomerException;
 import com.shopezly.model.Customer;
 import com.shopezly.repository.CustomerRepo;
@@ -17,8 +18,11 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepo customerRepo;
 
 	@Override
-	public Customer addCustomer(Customer customer) {
+	public Customer addCustomer(Customer customer) throws CustomerException {
 		
+		if (customer.getRole() != Role.CUSTOMER)
+			throw new CustomerException("Enter a valid role for customer");
+			
 		return customerRepo.save(customer);
 	}
 
@@ -41,19 +45,23 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(Integer customerId, Customer customer) throws CustomerException {
-		Customer existingCustomer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerException("Customer not found with id " + customerId));
+	public Customer updateCustomer(Customer customer) throws CustomerException {
+		Customer existingCustomer = customerRepo.findById(customer.getUserId())
+				.orElseThrow(() -> new CustomerException("Customer not found with id " + customer.getUserId()));
 
+		if(customer.getRole() != Role.CUSTOMER)
+			throw new CustomerException("Enter a valid role for customer");
+		
 		return customerRepo.save(customer);
 	}
 
 	@Override
-	public Customer deleteCustomer(Integer customerId) throws CustomerException {
+	public String deleteCustomer(Integer customerId) throws CustomerException {
 		Customer existingCustomer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerException("Customer not found with id " + customerId));
 		
 		customerRepo.delete(existingCustomer);
 		
-		return existingCustomer;
+		return "Customer deleted with id: " + customerId;
 	}
 
 }
