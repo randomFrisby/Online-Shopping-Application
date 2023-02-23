@@ -7,13 +7,14 @@ import com.shopezly.model.Customer;
 
 public interface CustomerService {
 
-	public Customer addCustomer(Customer customer);
+	public Customer addCustomer(Customer customer) throws CustomerException;
 	
 	public List<Customer> getAllCustomers() throws CustomerException;
 	
 	public Customer getCustomerById(Integer customerId) throws CustomerException;
 	
-	public Customer updateCustomer(Integer customerId, Customer customer) throws CustomerException;
+	public Customer updateCustomer(Customer customer) throws CustomerException;
 	
-	public Customer deleteCustomer(Integer customerId) throws CustomerException;
+	public String deleteCustomer(Integer customerId) throws CustomerException;
+	
 }

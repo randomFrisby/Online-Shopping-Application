@@ -10,5 +10,5 @@ public interface AdminService {
 	
 	public Admin getAdminById(Integer adminId);
 	
-	public Admin createAdmin(Admin admin);
+	public Admin createAdmin(Admin admin) throws Exception;
 }
