@@ -34,15 +34,15 @@ import lombok.ToString;
 public class Customer extends User {
 
 	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
+	@Size(min = 2, max = 20, message = "Lastname should be Greater then 2 and Less than 20")
 	private String firstName;
 	
 	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
+	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and Less than 20")
 	private String lastName;
 	
-	@NotNull(message = "mobile is mandatory")
-	@Pattern(regexp = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}$", message = "enter a valid indian number")
+	@NotNull(message = "Mobile is mandatory")
+	@Pattern(regexp = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}$", message = "Please Enter a valid Indian Number")
 	private String mobile;
 
 	
