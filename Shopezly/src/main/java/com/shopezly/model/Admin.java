@@ -25,15 +25,15 @@ import lombok.ToString;
 public class Admin extends User {
 	
 	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
+	@Size(min = 2, max = 20, message = "Lastname should be Greater than 2 and Less than 20")
 	private String firstName;
 	
 	@NotNull
-	@Size(min = 2, max = 20, message = "lastname should be greater then 2 and less the 20")
+	@Size(min = 2, max = 20, message = "Lastname should be Greater than 2 and Less than 20")
 	private String lastName;
 
 	@NotNull
-	@Min(value = 18, message = "age cannot be less than 18")
+	@Min(value = 18, message = "You are not Adult.")
 	private Integer age;
 	
 }
