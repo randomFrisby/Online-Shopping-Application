@@ -1,5 +1,11 @@
 package com.shopezly.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.validation.constraints.Min;
@@ -36,4 +42,8 @@ public class Admin extends User {
 	@Min(value = 18, message = "You are not Adult.")
 	private Integer age;
 	
+	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@ElementCollection
+	Set<Product> products = new HashSet<>();
 }
