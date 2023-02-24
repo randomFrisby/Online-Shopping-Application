@@ -31,7 +31,7 @@ public class AddressController {
 	private AddressService addressService;
 
 	@PostMapping("/addAddress")
-	public ResponseEntity<Address> addAddressHandler(@RequestBody Address addr, @RequestParam("key") String key)
+	public ResponseEntity<Address> addAddressHandler(@Valid @RequestBody Address addr, @RequestParam("key") String key)
 			throws LoginException, AddressException, CustomerException {
 
 		Address newAddr = addressService.createAddress(addr, key);

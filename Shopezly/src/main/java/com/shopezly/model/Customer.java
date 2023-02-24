@@ -1,6 +1,8 @@
 package com.shopezly.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,4 +50,13 @@ public class Customer extends User {
 	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "customer")
 	private Set<Address> addresses = new HashSet<>();
 	
+	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "customer")
+	private List<Orders> orders = new ArrayList<>();
+	
+	
+	
 }
+
+

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 import com.shopezly.exceptions.CustomerException;
 import com.shopezly.exceptions.LoginException;
+import com.shopezly.model.Admin;
 import com.shopezly.model.CurrentUserSession;
 import com.shopezly.model.Customer;
+import com.shopezly.repository.AdminRepo;
 import com.shopezly.repository.CurrentSessionRepo;
 import com.shopezly.repository.CustomerRepo;
 
@@ -14,10 +16,13 @@ import com.shopezly.repository.CustomerRepo;
 public class LoginUtil {
 	
 	@Autowired
-	CurrentSessionRepo currentSessionRepo;
+	private CurrentSessionRepo currentSessionRepo;
 	
 	@Autowired
 	private CustomerRepo customerRepo;
+	
+	@Autowired
+	private AdminRepo adminRepo;
 	
 	
 	public Customer provideExistingCustomer (String key) throws LoginException, CustomerException {
@@ -26,7 +31,7 @@ public class LoginUtil {
 	
 		
 		if (currentSession == null)
-			throw new LoginException("login before adding address");
+			throw new LoginException("User as customer need to login to perfrom this operation");
 			
 		
 		Customer existingCustomer = customerRepo.findById(currentSession.getUserId())
@@ -34,5 +39,21 @@ public class LoginUtil {
 		
 		
 		return existingCustomer;
+	}
+	
+	public Admin provideExistingAdmin (String key) throws LoginException, CustomerException {
+		
+		CurrentUserSession currentSession = currentSessionRepo.findByUuid(key);
+	
+		
+		if (currentSession == null)
+			throw new LoginException("User as admin need to login to perfrom this operation");
+			
+		
+		Admin existingAdmin = adminRepo.findById(currentSession.getUserId())
+				.orElseThrow(() -> new CustomerException("Admin not found with id " + currentSession.getUserId()));
+		
+		
+		return existingAdmin;
 	}
 }
