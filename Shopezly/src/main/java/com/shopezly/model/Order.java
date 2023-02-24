@@ -29,13 +29,13 @@ import lombok.Setter;
 public class Order {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderId;
 
 	@NotNull
 	private LocalDate orderDate;
 	@NotBlank
-	@NotNull(message = "OS Status Mandatory")
+	@NotNull(message = "Order Status Mandatory")
 	@NotEmpty
 	private String orderStatus;
 	@JsonIgnore
