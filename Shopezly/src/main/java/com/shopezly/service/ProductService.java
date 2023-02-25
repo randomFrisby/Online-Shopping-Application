@@ -12,7 +12,7 @@ public interface ProductService {
 	   
 	   public Product addProduct(Product product, String key) throws LoginException, CustomerException;
 	   
-	   public Product updateProduct(Product product, String key) throws LoginException, CustomerException, ProductNotFoundException;
+	   public Product updateProduct(Integer productId, Integer quantity, String key) throws LoginException, CustomerException, ProductNotFoundException;
 	   
 	   public Product viewProductById(Integer productId, String key) throws LoginException, CustomerException, ProductNotFoundException;
 	   

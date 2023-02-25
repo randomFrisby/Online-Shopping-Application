@@ -41,6 +41,9 @@ public class OrderServiceImpl implements OrderService {
 		List<Integer> ids = order.getProductIds();
 		List<Integer> qtys = order.getProductQty();
 		
+		if (ids.isEmpty() || qtys.isEmpty() || ids.size() != qtys.size())
+			throw new CustomerException("Please provide apporpriate product ids and their quantity");
+		
 		for (int i = 0; i < ids.size(); i++) {
 			Integer id = ids.get(i);
 			Integer qty = qtys.get(i);
@@ -50,14 +53,22 @@ public class OrderServiceImpl implements OrderService {
 			if (product.getQuantity() < qty) 
 				throw new ProductNotFoundException("Not enough product available , you require " + qty + " but only " + product.getQuantity() + " are available");
 			
+		}
+		
+		for (int i = 0; i < ids.size(); i++) {
+			
+			Integer id = ids.get(i);
+			Integer qty = qtys.get(i);
+			
+			Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found with id " + id));
 			
 			products.put(product, qty);
 			
 			product.setQuantity(product.getQuantity() - qty);
 			
 			Product updateProduct = productRepo.save(product);
+			
 		}
-		
 		existingCustomer.getOrders().add(order);
 		
 		order.setCustomer(existingCustomer);

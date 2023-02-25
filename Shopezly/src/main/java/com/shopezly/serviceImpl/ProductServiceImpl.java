@@ -35,13 +35,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product updateProduct(Product product, String key) throws LoginException, CustomerException {
+	public Product updateProduct(Integer productId, Integer quantity, String key) throws LoginException, CustomerException, ProductNotFoundException {
 		Admin existingAdmin = loginUtil.provideExistingAdmin(key);
 		
-		existingAdmin.getProducts().add(product);
-		product.setAdmin(existingAdmin);
+		Product product = productRepo.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found wiht id " + productId));
+		
+		product.setQuantity(quantity);
 		
 		return productRepo.save(product);
+		
 	}
 
 	@Override
@@ -77,7 +79,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		Product product = productRepo.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found wiht id " + productId));
 		
-		System.out.println(product);
 		productRepo.delete(product);
 		
 		return "Product with id " + productId + " has been deleted successfully";

@@ -12,10 +12,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 
 @Data
 @EqualsAndHashCode
+@ToString(exclude = {"admin"})
 @Entity
 public class Product {
 
