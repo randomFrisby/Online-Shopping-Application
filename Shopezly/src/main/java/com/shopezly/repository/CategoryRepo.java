@@ -6,7 +6,7 @@
 //
 //import com.shopezly.model.Category;
 //
-//public interface CategoryRepo extends JpaRepository<Category, Integer> {
+//public interface CategoryRepo extends JpaRepository<Category, Long> {
 //    
 //	List<Category> findByName(String name);
 //	

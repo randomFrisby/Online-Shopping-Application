@@ -2,19 +2,15 @@ package com.shopezly.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopezly.exceptions.CustomerException;
 import com.shopezly.exceptions.LoginException;
-import com.shopezly.exceptions.ProductNotFoundException;
 import com.shopezly.model.Customer;
 import com.shopezly.model.Orders;
-import com.shopezly.model.Product;
 import com.shopezly.repository.OrderRepo;
-import com.shopezly.repository.ProductRepo;
 import com.shopezly.service.OrderService;
 import com.shopezly.utility.LoginUtil;
 
@@ -28,35 +24,10 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private LoginUtil loginUtil;
 	
-	@Autowired
-	private ProductRepo productRepo;
-	
 
 	@Override
-	public Orders addOrder(Orders order, String key) throws LoginException, CustomerException, ProductNotFoundException {
+	public Orders addOrder(Orders order, String key) throws LoginException, CustomerException {
 		Customer existingCustomer  = loginUtil.provideExistingCustomer(key);
-		
-		Map<Product, Integer> products = order.getOrderedProducts();
-		
-		List<Integer> ids = order.getProductIds();
-		List<Integer> qtys = order.getProductQty();
-		
-		for (int i = 0; i < ids.size(); i++) {
-			Integer id = ids.get(i);
-			Integer qty = qtys.get(i);
-			
-			Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found with id " + id));
-			
-			if (product.getQuantity() < qty) 
-				throw new ProductNotFoundException("Not enough product available , you require " + qty + " but only " + product.getQuantity() + " are available");
-			
-			
-			products.put(product, qty);
-			
-			product.setQuantity(product.getQuantity() - qty);
-			
-			Product updateProduct = productRepo.save(product);
-		}
 		
 		existingCustomer.getOrders().add(order);
 		

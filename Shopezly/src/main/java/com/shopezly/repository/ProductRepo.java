@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.shopezly.model.Product;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product, Integer> {
+public interface ProductRepo extends JpaRepository<Product, Long> {
     
 }
 

@@ -5,10 +5,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +44,6 @@ public class Admin extends User {
 	
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "admin")
+	@ElementCollection
 	Set<Product> products = new HashSet<>();
 }

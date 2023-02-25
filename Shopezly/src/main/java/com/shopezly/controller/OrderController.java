@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shopezly.exceptions.CustomerException;
 import com.shopezly.exceptions.LoginException;
 import com.shopezly.exceptions.MyErrorDetails;
-import com.shopezly.exceptions.ProductNotFoundException;
 import com.shopezly.model.Orders;
 import com.shopezly.service.OrderService;
 
@@ -33,7 +32,7 @@ public class OrderController {
 
 	@PostMapping("/addOrder")
 	public ResponseEntity<Orders> addOrder(@Valid @RequestBody Orders order, @RequestParam String key) 
-			throws LoginException, CustomerException, ProductNotFoundException {
+			throws LoginException, CustomerException {
 		
 		Orders newOrder = orderService.addOrder(order, key);
 		
