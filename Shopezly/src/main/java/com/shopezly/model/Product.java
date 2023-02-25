@@ -1,9 +1,13 @@
 package com.shopezly.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -39,10 +43,12 @@ public class Product {
 	private String manufacturer;
 
 	@NotNull
-	@Min(value = 1, message = "Quantity Not be Null Nither 0 (Zero).")
+	@Min(value = 0, message = "Quantity Not be Null Nither 0 (Zero).")
 	private Integer quantity;
 	
-//	@ManyToOne
-//	private Category category;
-
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "adminId")
+	Admin admin;
+	
 }

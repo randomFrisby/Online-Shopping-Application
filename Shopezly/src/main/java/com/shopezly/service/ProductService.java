@@ -20,7 +20,7 @@ public interface ProductService {
 	   
 	   public List<Product> viewProductByCategory(String categoryName, String key) throws LoginException, CustomerException, ProductNotFoundException, CategoryNotFoundException;
 	   
-	   public void removeProduct(Integer productId, String key) throws LoginException, CustomerException, ProductNotFoundException;
+	   public String removeProduct(Integer productId, String key) throws LoginException, CustomerException, ProductNotFoundException;
 
 }
 

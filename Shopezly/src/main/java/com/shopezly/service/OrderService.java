@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.shopezly.exceptions.CustomerException;
 import com.shopezly.exceptions.LoginException;
+import com.shopezly.exceptions.ProductNotFoundException;
 import com.shopezly.model.Orders;
 
 public interface OrderService {
 
-	public Orders addOrder(Orders order, String key) throws LoginException, CustomerException;
+	public Orders addOrder(Orders order, String key) throws LoginException, CustomerException, ProductNotFoundException;
 	
 	public Orders updateOrder(Orders order, String key) throws LoginException, CustomerException;
 	

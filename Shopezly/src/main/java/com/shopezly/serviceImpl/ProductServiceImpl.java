@@ -28,24 +28,29 @@ public class ProductServiceImpl implements ProductService {
 	public Product addProduct(Product product, String key) throws LoginException, CustomerException {
 		Admin existingAdmin = loginUtil.provideExistingAdmin(key);
 		
-		System.out.println(existingAdmin);
-		System.out.println("hello");
-		
 		existingAdmin.getProducts().add(product);
+		product.setAdmin(existingAdmin);
 		
 		return productRepo.save(product);
 	}
 
 	@Override
-	public Product updateProduct(Product product, String key) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product updateProduct(Product product, String key) throws LoginException, CustomerException {
+		Admin existingAdmin = loginUtil.provideExistingAdmin(key);
+		
+		existingAdmin.getProducts().add(product);
+		product.setAdmin(existingAdmin);
+		
+		return productRepo.save(product);
 	}
 
 	@Override
-	public Product viewProductById(Integer productId, String key) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Product viewProductById(Integer productId, String key) throws LoginException, CustomerException, ProductNotFoundException {
+		Admin existingAdmin = loginUtil.provideExistingAdmin(key);
+		
+		Product product = productRepo.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found wiht id " + productId));
+		
+		return product;
 	}
 
 	@Override
@@ -67,9 +72,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void removeProduct(Integer productId, String key) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
+	public String removeProduct(Integer productId, String key) throws ProductNotFoundException, LoginException, CustomerException {
+		Admin existingAdmin = loginUtil.provideExistingAdmin(key);
 		
+		Product product = productRepo.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found wiht id " + productId));
+		
+		System.out.println(product);
+		productRepo.delete(product);
+		
+		return "Product with id " + productId + " has been deleted successfully";
 	}
 
 }
