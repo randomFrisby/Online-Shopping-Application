@@ -49,8 +49,6 @@ public class AddressServiceImpl implements AddressService{
 		Customer existingCustomer  = loginUtil.provideExistingCustomer(key);
 		
 		
-		System.out.println(existingCustomer.getFirstName());
-		
 		Boolean flag = false;
 		for (Address addr: existingCustomer.getAddresses()) {
 			if (addr.getAddressId() == addrId) {
