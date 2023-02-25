@@ -2,6 +2,7 @@ package com.shopezly.exceptions;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,6 +26,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.NOT_FOUND);
 		
 	}
+
 	
 	
 	@ExceptionHandler(Exception.class)
