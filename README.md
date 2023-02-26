@@ -1,8 +1,7 @@
 # Shopezly - Online Shopping Application
 
 # Logo
-
-![shopezly](https://user-images.githubusercontent.com/106339098/220434282-2d7cce50-9894-4d47-b16b-f1147e785fa0.png)
+![shopezly](https://user-images.githubusercontent.com/106339098/221424489-cbfcab89-d0c3-4b84-918c-309c7cfe0f2c.gif)
 
 # ER Diagram
 
@@ -12,7 +11,7 @@
 
 fp06_365 - Hariom Choudhary
 
-fp02_073 - Deep Raj Singh
+~~fp02_073 - Deep Raj Singh~~
 
 fw17_1050 - Chetan Borkar
 
